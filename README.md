@@ -4,6 +4,8 @@ A [DankMaterialShell](https://github.com/dankmaterial/DMS) bar widget that
 shows live exchange rates for any currency pair (`BRLPLN`, `EURUSD`, `CNYJPY`)
 using Wise's public rates API. No API key is required.
 
+![Wise Rates showing BRL/PLN and USD exchange rates](Images/Wise-Rates.jpg)
+
 ## Features
 
 - Pin rates to `DankBar` and view live values, change, and sparkline charts.

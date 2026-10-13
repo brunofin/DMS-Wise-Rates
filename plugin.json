@@ -15,5 +15,6 @@
     "requires_dms": ">=1.2.0",
     "distro": ["any"],
     "compositors": ["any"],
-    "dependencies": ["curl", "bash"]
+    "dependencies": ["curl", "bash"],
+    "screenshot": "https://raw.githubusercontent.com/brunofin/DMS-Wise-Rates/main/Images/Wise-Rates.jpg"
 }
