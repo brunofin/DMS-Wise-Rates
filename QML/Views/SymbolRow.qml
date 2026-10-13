@@ -122,7 +122,7 @@ Item {
         spacing: 1
 
         StyledText {
-            text:           hasData ? formatNumber(price, 6) : (isLoading ? "Loading…" : "—")
+            text:           hasData ? formatNumber(price, 4) : (isLoading ? "Loading…" : "—")
             font.pixelSize: Theme.fontSizeMedium
             font.weight:    Font.Medium
             color:          Theme.surfaceText
@@ -130,14 +130,14 @@ Item {
 
         StyledText {
             visible:        hasData && symbolRow.showPriceRange
-            text:           (isPositive ? "+" : "") + formatNumber(change, 6)
+            text:           (isPositive ? "+" : "") + formatNumber(change, 4)
             font.pixelSize: Theme.fontSizeSmall + c.smallFontSizeDelta
             color:          changeColor
         }
 
         StyledText {
             visible:        hasData && symbolRow.showPriceRange
-            text:           "(" + (isPositive ? "+" : "") + changePct.toFixed(4) + "%)"
+            text:           "(" + (isPositive ? "+" : "") + changePct.toFixed(2) + "%)"
             font.pixelSize: Theme.fontSizeSmall + c.smallFontSizeDelta
             color:          changeColor
         }
