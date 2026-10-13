@@ -2,7 +2,7 @@
 //
 // This file defines the provider registry and public API. All provider-specific
 // logic (URL building, response parsing) lives in separate provider files
-// (e.g. StooqProvider.js) that register themselves into this singleton.
+// that register themselves into this singleton.
 //
 // ─── Provider Contract ───────────────────────────────────────────────────────
 //
@@ -43,7 +43,7 @@
 //     buildHistoryUrl:         function(symbol: string, interval: string, maxPoints?: number) → string,
 //     //
 //     // Parse response → DataPoint[]
-//     parseHistoryResponse:    function(responseText: string) → DataPoint[],
+//     parseHistoryResponse:    function(responseText: string, context?: object) → DataPoint[],
 //
 //     // ── Navigation ─────────────────────────────────────────────────────
 //     // Build a browser-friendly URL for the symbol page
@@ -97,7 +97,7 @@ function _buildRequestCommand(provider, url, tailLines) {
     var commandText = provider.buildFetchCommand
         ? provider.buildFetchCommand(url, tailLines)
         : _buildPlainFetchCommand(url, tailLines);
-    return Constants.FETCH_SHELL_COMMAND.concat([commandText, "markets-fetch", url]);
+    return Constants.FETCH_SHELL_COMMAND.concat([commandText, "wise-rates-fetch", url]);
 }
 
 // ─── Credential Management ───────────────────────────────────────────────────
@@ -253,10 +253,10 @@ function getHistoryRequest(symbol, providerId, interval, maxPoints) {
     }
 }
 
-function parseHistoryResponse(providerId, responseText) {
+function parseHistoryResponse(providerId, responseText, context) {
     var provider = _providers[providerId];
     if (!provider) return [];
-    return provider.parseHistoryResponse(responseText);
+    return provider.parseHistoryResponse(responseText, context);
 }
 
 // ─── Navigation ──────────────────────────────────────────────────────────────

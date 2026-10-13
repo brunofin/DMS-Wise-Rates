@@ -1,4 +1,4 @@
-// PopoutPanel.qml — Popout content area for the Markets plugin
+// PopoutPanel.qml — Popout content area for the Wise Rates plugin
 //
 // Contains the symbol list, header hover buttons (refresh all + close),
 // custom scroll indicator, and empty-state placeholder.
@@ -224,7 +224,7 @@ Item {
         }
 
         StyledText {
-            text:           "Open Settings → Markets to add symbols"
+            text:           "Open Settings → Wise Rates to add symbols"
             font.pixelSize: Theme.fontSizeSmall
             color:          Theme.surfaceVariantText
             anchors.horizontalCenter: parent.horizontalCenter

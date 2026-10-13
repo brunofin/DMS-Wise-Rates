@@ -82,7 +82,7 @@ function deobfuscate(encoded) {
                 out += String.fromCharCode(parseInt(encoded.substring(i, i + Constants.HEX_BYTE_WIDTH), 16) ^ key.charCodeAt((i / Constants.HEX_BYTE_WIDTH) % key.length))
             return out
         } catch (e) {
-            console.warn("[Markets/Helpers] deobfuscate failed:", e)
+            console.warn("[WiseRates/Helpers] deobfuscate failed:", e)
         }
     }
     // Fallback: treat as a legacy plain-text value and return as-is

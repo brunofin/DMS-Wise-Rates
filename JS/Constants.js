@@ -1,4 +1,4 @@
-// Constants.js — JS-side constants for the Markets plugin
+// Constants.js — JS-side constants for the Wise Rates plugin
 //
 // Only values consumed by JS logic live here (fetching, parsing, timing).
 // UI constants (sizes, colors, strings) live in QML/Constants.qml.
@@ -39,7 +39,7 @@ var PROCESS_NICE_LEVEL = 19
 var PROCESS_IONICE_CLASS = 3
 
 // ── Provider credential obfuscation ───────────────────────────────────────────
-var CREDENTIAL_OBF_SEED = "https://github.com/TMS-Namespace/DMS-Markets-Plugin"
+var CREDENTIAL_OBF_SEED = "https://github.com/brunofin/DMS-Wise-Rates"
 
 // ── General numeric constants ────────────────────────────────────────────────
 var PERCENT_MULTIPLIER = 100
@@ -100,75 +100,28 @@ var INTERVAL_LABELS = {
     "1M":  "1 month"
 }
 
-// ── Stooq provider constants ────────────────────────────────────────────────
-var STOOQ_PROVIDER_ID = "stooq"
-var STOOQ_NAME = "Stooq"
-var STOOQ_CREDENTIAL_SETTING_KEY = "providerCredential_stooq"
-var STOOQ_CREDENTIAL_LABEL = "Stooq API Key"
-var STOOQ_CREDENTIAL_PLACEHOLDER = "Paste your Stooq API key here"
-var STOOQ_CREDENTIAL_MIN_LENGTH = 25
-var STOOQ_CREDENTIAL_MAX_LENGTH = 40
-var STOOQ_CREDENTIAL_HELP_TITLE = "Stooq API key availability"
-var STOOQ_CREDENTIAL_HELP_TEXT = "Stooq's previous API-key request page currently returns an empty page. Existing valid keys can still be pasted here, but new key generation is not currently available through the old flow."
-var STOOQ_DISABLED_MESSAGE = "Stooq is currently disabled because its API has become unstable and repeatedly broke data fetching. It may be re-enabled if the API becomes reliable again.\n\nPlease delete any existing Stooq symbols and re-add them using another provider. Symbol names can differ between providers."
-var STOOQ_SYMBOL_SEARCH_URL = "https://stooq.com"
-var STOOQ_SYMBOL_HELP_TEXT = "Provider-specific symbol from Stooq"
-var STOOQ_SYMBOL_PLACEHOLDER = "eurusd"
-var STOOQ_SETTINGS_TEXT = "Required only for symbols that use the Stooq provider."
-var STOOQ_AUTH_ERROR_MESSAGE = "Stooq API key missing or invalid"
-var STOOQ_CREDENTIAL_ERROR_SENTINEL = "get your apikey"
-var STOOQ_DATA_URL = "https://stooq.com/q/d/l/"
-var STOOQ_SYMBOL_PAGE_URL = "https://stooq.com/q/"
-var STOOQ_VERIFY_URL = "https://stooq.com/__verify"
-var STOOQ_COOKIE_FILE = "dms-markets-stooq.cookies"
-var STOOQ_BROWSER_CHALLENGE_TEXT = "This site requires JavaScript to verify your browser"
-var STOOQ_ERROR_FILENAME_HEADER = "filename=error.txt"
-var STOOQ_INTERVAL_MAP = {
-    "5m":  "5",
-    "15m": "15",
-    "1h":  "h",
-    "1d":  "d",
-    "1w":  "w",
-    "1M":  "m"
+// ── Wise provider constants ─────────────────────────────────────────────────
+var WISE_PROVIDER_ID = "wise"
+var WISE_NAME = "Wise"
+var WISE_HISTORY_LIVE_URL = "https://wise.com/rates/history+live"
+var WISE_CONVERTER_BASE_URL = "https://wise.com/gb/currency-converter/"
+var WISE_SYMBOL_HELP_TEXT = "6-letter currency pair (source then target), e.g. BRLPLN, EURUSD, CNYJPY. Wise covers most world currencies."
+var WISE_SYMBOL_PLACEHOLDER = "BRLPLN"
+var WISE_SETTINGS_TEXT = "No credential required. Enter a 6-letter currency pair such as BRLPLN (Brazilian Real → Polish Złoty)."
+var WISE_SYMBOL_SEARCH_URL = "https://wise.com/gb/currency-converter/"
+var WISE_INTERVAL_MAP = {
+    "1m":  "hourly",
+    "5m":  "hourly",
+    "15m": "hourly",
+    "1h":  "hourly",
+    "1d":  "daily",
+    "1w":  "daily",
+    "1M":  "daily"
 }
-
-// ── Yahoo provider constants ────────────────────────────────────────────────
-var YAHOO_PROVIDER_ID = "yahoo"
-var YAHOO_NAME = "Yahoo Finance"
-var YAHOO_CHART_BASE_URL = "https://query1.finance.yahoo.com/v8/finance/chart/"
-var YAHOO_LOOKUP_URL = "https://finance.yahoo.com/lookup"
-var YAHOO_QUOTE_BASE_URL = "https://finance.yahoo.com/quote/"
-var YAHOO_SYMBOL_HELP_TEXT = "Provider-specific Yahoo Finance symbol, e.g. EURUSD=X, BZ=F, HG=F, DX-Y.NYB, ^GSPC"
-var YAHOO_SYMBOL_PLACEHOLDER = "EURUSD=X"
-var YAHOO_SETTINGS_TEXT = "No credential is required. Use Yahoo Finance symbols such as EURUSD=X, BZ=F, HG=F, DX-Y.NYB, or ^GSPC."
-var YAHOO_EVENTS_PARAM = "history"
-var YAHOO_INCLUDE_PRE_POST = "false"
-var YAHOO_INTERVAL_MAP = {
-    "1m":  "1m",
-    "5m":  "5m",
-    "15m": "15m",
-    "1h":  "1h",
-    "1d":  "1d",
-    "1w":  "1wk",
-    "1M":  "1mo"
-}
-var YAHOO_PRICE_RANGE_BY_INTERVAL = {
-    "1m":  "1d",
-    "5m":  "5d",
-    "15m": "5d",
-    "1h":  "5d",
-    "1w":  "6mo",
-    "1mo": "2y"
-}
-var YAHOO_DEFAULT_PRICE_RANGE = "1mo"
-var YAHOO_RANGE_ONE_MONTH = "1mo"
-var YAHOO_RANGE_SIX_MONTHS = "6mo"
-var YAHOO_RANGE_ONE_YEAR = "1y"
-var YAHOO_RANGE_TWO_YEARS = "2y"
-var YAHOO_RANGE_FIVE_YEARS = "5y"
-var YAHOO_RANGE_TEN_YEARS = "10y"
-var YAHOO_DEFAULT_HISTORY_POINTS = 30
-var YAHOO_WEEKLY_SHORT_POINTS = 104
-var YAHOO_DAILY_ONE_MONTH_POINTS = 30
-var YAHOO_DAILY_SIX_MONTH_POINTS = 65
-var YAHOO_DAILY_ONE_YEAR_POINTS = 130
+// The live/history endpoints only offer hourly and daily resolution, and
+// reject spans wider than ~5 years. Charts longer than that are clamped.
+var WISE_DEFAULT_HISTORY_POINTS = 30
+var WISE_MAX_HISTORY_DAYS = 1825
+var WISE_DAILY_UNIT_MAX_LENGTH = 30
+var WISE_MONTH_UNIT_MAX_LENGTH = 60
+var WISE_MS_PER_DAY = 86400000

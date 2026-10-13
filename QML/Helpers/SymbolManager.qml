@@ -34,10 +34,10 @@ Item {
             var sym = pinnedSymbols[i]
             var pd  = priceData[sym.id]
             if (pd && pd.close !== undefined && !isNaN(pd.close)) {
-                var label = sym.name + " " + Helpers.formatNumber(pd.close)
+                var label = sym.name + " " + Helpers.formatNumber(pd.close, 6)
                 if (Helpers.boolValue(sym.showChangeWhenPinned, false)) {
                     var chg  = pd.change || 0
-                    label += " " + (chg >= 0 ? "+" : "") + Helpers.formatNumber(chg)
+                    label += " " + (chg >= 0 ? "+" : "") + Helpers.formatNumber(chg, 6)
                 }
                 parts.push(label)
             } else {
@@ -52,7 +52,7 @@ Item {
 
     // ── Symbol mutation ───────────────────────────────────────────────────────
     function togglePin(symbolId) {
-        if (c.devMode) console.log("[Markets/SymbolManager] togglePin", symbolId)
+        if (c.devMode) console.log("[WiseRates/SymbolManager] togglePin", symbolId)
         var list = JSON.parse(JSON.stringify(symbols))
         for (var i = 0; i < list.length; i++) {
             if (list[i].id === symbolId) {
@@ -64,7 +64,7 @@ Item {
     }
 
     function removeSymbol(symbolId) {
-        if (c.devMode) console.log("[Markets/SymbolManager] removeSymbol", symbolId)
+        if (c.devMode) console.log("[WiseRates/SymbolManager] removeSymbol", symbolId)
         var list = []
         for (var i = 0; i < symbols.length; i++)
             if (symbols[i].id !== symbolId) list.push(symbols[i])
@@ -72,7 +72,7 @@ Item {
     }
 
     function _save(list) {
-        if (c.devMode) console.log("[Markets/SymbolManager] saving", list.length, "symbols")
+        if (c.devMode) console.log("[WiseRates/SymbolManager] saving", list.length, "symbols")
         if (pluginService)
             pluginService.savePluginData(pluginId, "symbols", JSON.stringify(list))
     }

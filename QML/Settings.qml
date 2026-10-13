@@ -1,6 +1,6 @@
 // Settings.qml — Plugin settings page
 //
-// Provides the configuration interface for the Markets plugin:
+// Provides the configuration interface for the Wise Rates plugin:
 // - Chart colors (up/down)
 // - Popup layout (visible rows slider)
 // - Add/edit symbol form
@@ -15,12 +15,11 @@ import "../JS/Helpers.js" as Helpers
 import "../JS/ProviderInterface.js" as Providers
 import "../JS/ProviderBootstrap.js" as ProviderBootstrap
 import "./Helpers"
-import "./ProviderSettings"
 import "./Views"
 
 PluginSettings {
     id: root
-    pluginId: "markets"
+    pluginId: "wiseRates"
 
     Constants { id: c }
 
@@ -72,7 +71,7 @@ PluginSettings {
 
     StyledText {
         width: parent.width
-        text: "Markets Plugin"
+        text: "Wise Rates"
         font.pixelSize: Theme.fontSizeLarge
         font.weight: Font.Bold
         color: Theme.surfaceText
@@ -570,7 +569,7 @@ PluginSettings {
         for (var symbolIndex = 0; symbolIndex < symbolsList.length; symbolIndex++) {
             if (symbolIndex === editIndex) continue
             if (symbolsList[symbolIndex].id === ticker) {
-                ToastService.showError("Markets", "'" + ticker + "' is already added")
+                ToastService.showError("Wise Rates", "'" + ticker + "' is already added")
                 return
             }
         }
@@ -600,10 +599,10 @@ PluginSettings {
         if (editIndex >= 0 && editIndex < symbolsCopy.length) {
             entry.pinned              = symbolsCopy[editIndex].pinned
             symbolsCopy[editIndex]    = entry
-            ToastService.showInfo("Markets", "Updated " + name + " (" + ticker + ")")
+            ToastService.showInfo("Wise Rates", "Updated " + name + " (" + ticker + ")")
         } else {
             symbolsCopy.push(entry)
-            ToastService.showInfo("Markets", "Added " + name + " (" + ticker + ")")
+            ToastService.showInfo("Wise Rates", "Added " + name + " (" + ticker + ")")
         }
 
         root.saveValue("symbols", JSON.stringify(symbolsCopy))
@@ -674,7 +673,7 @@ PluginSettings {
         root.saveValue("symbols", JSON.stringify(symbolsCopy))
         var wasEditing = (editIndex === symbolIndex)
         if (editIndex > symbolIndex) editIndex--
-        ToastService.showInfo("Markets", "Removed " + (removed.name || removed.id))
+        ToastService.showInfo("Wise Rates", "Removed " + (removed.name || removed.id))
         if (wasEditing) Qt.callLater(clearForm)
         else Qt.callLater(refreshSymbolsList)
     }

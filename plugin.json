@@ -1,13 +1,13 @@
 {
-    "id": "markets",
-    "name": "Markets",
+    "id": "wiseRates",
+    "name": "Wise Rates",
     "capabilities": ["dankbar-widget"],
     "category": "finance",
-    "repo": "https://github.com/TMS-Namespace/DMS-Markets-Plugin",
-    "description": "Near-live market prices for currencies, stocks, and commodities with charts through configurable data providers.",
-    "version": "1.0.4",
-    "author": "TMS-Namespace",
-    "icon": "show_chart",
+    "repo": "https://github.com/brunofin/DMS-Wise-Rates",
+    "description": "Live currency exchange rates for any pair with charts, powered by Wise. No API key required.",
+    "version": "0.1.0",
+    "author": "Bruno Finger",
+    "icon": "currency_exchange",
     "type": "widget",
     "component": "./QML/Widget.qml",
     "settings": "./QML/Settings.qml",
@@ -15,6 +15,5 @@
     "requires_dms": ">=1.2.0",
     "distro": ["any"],
     "compositors": ["any"],
-    "dependencies": ["curl", "bash"],
-    "screenshot": "https://github.com/TMS-Namespace/DMS-Markets-Plugin/raw/main/Images/Dark-Popup.png"
+    "dependencies": ["curl", "bash"]
 }

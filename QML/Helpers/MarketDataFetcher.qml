@@ -1,4 +1,4 @@
-// MarketDataFetcher.qml — Data-fetching engine for the Markets plugin
+// MarketDataFetcher.qml — Data-fetching engine for the Wise Rates plugin
 //
 // Encapsulates all network I/O: polling timer, retry queue, curl Process
 // instances, incremental graph merge, and response parsing.
@@ -117,7 +117,7 @@ Item {
         var q    = _retryQueue.slice()
         var item = q.shift()
         _retryQueue = q
-        if (c.devMode) console.log("[Markets/Fetcher] retry", item.sym.id, item.fetchType,
+        if (c.devMode) console.log("[WiseRates/Fetcher] retry", item.sym.id, item.fetchType,
                     "(attempt", item.attempt + "/" + _maxRetries + ")")
         doFetch(item.sym, item.fetchType, item.attempt)
         if (_retryQueue.length > 0) {
@@ -148,7 +148,7 @@ Item {
             stderr: SplitParser {
                 onRead: line => {
                     if (line.trim() && c.devMode)
-                        console.warn("[Markets/Fetcher] fetch", symbolId, "stderr:", line)
+                        console.warn("[WiseRates/Fetcher] fetch", symbolId, "stderr:", line)
                 }
             }
 
@@ -156,14 +156,14 @@ Item {
                 if (exitCode === 0 && _buffer.trim()) {
                     _onFetchComplete(symbolId, providerName, fetchType, chartRange, _buffer)
                 } else if (exitCode !== 0) {
-                    if (c.devMode) console.warn("[Markets/Fetcher]", symbolId, fetchType, "exited with code", exitCode)
+                    if (c.devMode) console.warn("[WiseRates/Fetcher]", symbolId, fetchType, "exited with code", exitCode)
                     if (_attempt < _maxRetries) {
                         var symbol = _findSymbol(symbolId)
                         if (symbol)
                             _scheduleRetry(symbol, fetchType, _attempt + 1)
                     }
                 } else {
-                    if (c.devMode) console.warn("[Markets/Fetcher]", symbolId, fetchType,
+                    if (c.devMode) console.warn("[WiseRates/Fetcher]", symbolId, fetchType,
                                  "returned empty response — no retry")
                 }
                 _finishFetch(fetchKey, symbolId)
@@ -188,7 +188,7 @@ Item {
     // ── Public: start a fetch ─────────────────────────────────────────────────
     function doFetch(symbol, fetchType, attempt) {
         var retryNum  = attempt || 0
-        if (c.devMode) console.log("[Markets/Fetcher] doFetch", symbol.id, fetchType,
+        if (c.devMode) console.log("[WiseRates/Fetcher] doFetch", symbol.id, fetchType,
                                    retryNum > 0 ? "(retry " + retryNum + ")" : "")
         var providerId = symbol.provider || Providers.getDefaultProviderId()
         if (!Providers.hasRequiredCredential(providerId))
@@ -209,7 +209,7 @@ Item {
 
         var fetchKey = symbol.id + "_" + fetchType + "_" + url
         if (_queuedFetchKeys[fetchKey]) {
-            if (c.devMode) console.log("[Markets/Fetcher] already queued/running", symbol.id, fetchType)
+            if (c.devMode) console.log("[WiseRates/Fetcher] already queued/running", symbol.id, fetchType)
             return
         }
 
@@ -351,9 +351,10 @@ Item {
             fetchTimesUpdated(times)
 
         } else {
-            var history = Providers.parseHistoryResponse(providerName, csvText)
+            var histConfig = Providers.getHistoryConfig(chartRange)
+            var history = Providers.parseHistoryResponse(providerName, csvText, { interval: histConfig.interval })
             if (history.length === 0) {
-                if (c.devMode) console.warn("[Markets/Fetcher]", symbolId, "history returned no data — chart unavailable")
+                if (c.devMode) console.warn("[WiseRates/Fetcher]", symbolId, "history returned no data — chart unavailable")
                 return
             }
 
@@ -369,7 +370,6 @@ Item {
                 }
             }
 
-            var histConfig = Providers.getHistoryConfig(chartRange)
             var newGraph   = {}
             for (var gk in graphData) newGraph[gk] = graphData[gk]
             newGraph[symbolId] = history.slice(-histConfig.maxPoints)
@@ -393,7 +393,7 @@ Item {
 
     // ── Public: force-refresh a single symbol ─────────────────────────────────
     function forceRefreshSymbol(symbolId) {
-        if (c.devMode) console.log("[Markets/Fetcher] forceRefreshSymbol", symbolId)
+        if (c.devMode) console.log("[WiseRates/Fetcher] forceRefreshSymbol", symbolId)
         for (var i = 0; i < symbols.length; i++) {
             if (symbols[i].id === symbolId) {
                 var fullFetch = {}
@@ -409,7 +409,7 @@ Item {
 
     // ── Public: force-refresh every symbol ────────────────────────────────────
     function forceRefreshAll() {
-        if (c.devMode) console.log("[Markets/Fetcher] forceRefreshAll", symbols.length, "symbols")
+        if (c.devMode) console.log("[WiseRates/Fetcher] forceRefreshAll", symbols.length, "symbols")
         var fullFetch = {}
         for (var k in _lastFullGraphFetch) fullFetch[k] = _lastFullGraphFetch[k]
         for (var i = 0; i < symbols.length; i++) {
@@ -441,7 +441,7 @@ Item {
 
     // ── Public: kick off all initial fetches ──────────────────────────────────
     function startInitialFetches(symbolList) {
-        if (c.devMode) console.log("[Markets/Fetcher] startInitialFetches —", symbolList.length, "symbols")
+        if (c.devMode) console.log("[WiseRates/Fetcher] startInitialFetches —", symbolList.length, "symbols")
         var now      = Date.now()
         var newTimes = {}
         var queue    = []

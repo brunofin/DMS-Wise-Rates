@@ -1,4 +1,4 @@
-// Constants.qml — QML-side constants for the Markets plugin
+// Constants.qml — QML-side constants for the Wise Rates plugin
 //
 // Instantiate in each consumer with:   Constants { id: c }
 // Then reference as:                   c.defaultUpColor
@@ -19,9 +19,9 @@ QtObject {
     readonly property color validationErrorColor: defaultDownColor
 
     // ── Bar-pill display strings ──────────────────────────────────────────────
-    readonly property string barDefaultLabel: "Markets"
+    readonly property string barDefaultLabel: "Rates"
     readonly property string barSeparator:    "│"
-    readonly property string pluginSubtitle:  "Track live prices for currencies, stocks, commodities, and crypto."
+    readonly property string pluginSubtitle:  "Currency exchange rates from Wise for any pair."
 
     // ── Popout / widget layout ────────────────────────────────────────────────
     readonly property int popoutWidth:      440

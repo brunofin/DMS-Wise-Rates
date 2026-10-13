@@ -1,4 +1,4 @@
-module Markets.Helpers
+module WiseRates.Helpers
 Constants           1.0 Constants.qml
 ChartDataProcessor  1.0 ChartDataProcessor.qml
 MarketDataFetcher   1.0 MarketDataFetcher.qml

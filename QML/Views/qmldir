@@ -1,4 +1,4 @@
-module Markets.Views
+module WiseRates.Views
 HorizontalBarPill   1.0 HorizontalBarPill.qml
 VerticalBarPill     1.0 VerticalBarPill.qml
 PopoutPanel         1.0 PopoutPanel.qml

@@ -26,7 +26,7 @@ import "./Views"
 PluginComponent {
     id: root
 
-    layerNamespacePlugin: "markets"
+    layerNamespacePlugin: "wiseRates"
 
     // ── QML constants ─────────────────────────────────────────────────────────
     Constants { id: c }
@@ -173,7 +173,7 @@ PluginComponent {
     }
 
     onSymbolsChanged: {
-        if (c.devMode && _initialized) console.log("[Markets/Widget] symbols changed —", symbols.length, "symbols")
+        if (c.devMode && _initialized) console.log("[WiseRates/Widget] symbols changed —", symbols.length, "symbols")
         if (_initialized) newSymbolChecker.restart()
     }
 
@@ -183,7 +183,7 @@ PluginComponent {
         _knownSymbolFetchSignatures = _symbolFetchSignatureMap(symbols)
         _lastProviderCredentialsSignature = _providerCredentialsSignature(providerCredentials)
         _initialized    = true
-        if (c.devMode) console.log("[Markets/Widget] initialized —", symbols.length, "symbols")
+        if (c.devMode) console.log("[WiseRates/Widget] initialized —", symbols.length, "symbols")
         if (symbols.length > 0)
             fetcher.startInitialFetches(symbols)
     }
@@ -203,7 +203,7 @@ PluginComponent {
             if (!credentialErrorCooldown.active) {
                 credentialErrorCooldown.active = true
                 credentialErrorCooldown.restart()
-                ToastService.showError("Markets", message)
+                ToastService.showError("Wise Rates", message)
             }
         }
     }
@@ -224,7 +224,7 @@ PluginComponent {
             iconSize:   root.iconSize
             shortLabel: symbolManager.pinnedSymbols.length > 0
                         ? symbolManager.pinnedSymbols[0].name
-                        : "MKT"
+                        : "FX"
         }
     }
 

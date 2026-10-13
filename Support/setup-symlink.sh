@@ -5,7 +5,7 @@
 #   chmod +x Support/setup-symlink.sh && Support/setup-symlink.sh
 
 PLUGIN_DIR="$HOME/.config/DankMaterialShell/plugins"
-PLUGIN_NAME="MarketsPlugin"
+PLUGIN_NAME="wiseRates"
 SOURCE_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 
 mkdir -p "$PLUGIN_DIR"
@@ -16,8 +16,8 @@ echo ""
 echo "Next steps:"
 echo "  1. Open DMS Settings → Plugins"
 echo "  2. Click 'Scan for Plugins'"
-echo "  3. Toggle 'Markets' on"
+echo "  3. Toggle 'Wise Rates' on"
 echo "  4. Add widget to DankBar"
 echo "  5. Run: dms restart"
 echo ""
-echo "Or hot-reload: dms ipc call plugins reload markets"
+echo "Or hot-reload: dms ipc call plugin-scan reload wiseRates"
