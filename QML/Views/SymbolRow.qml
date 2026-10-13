@@ -122,7 +122,7 @@ Item {
         spacing: 1
 
         StyledText {
-            text:           hasData ? formatNumber(price, 4) : (isLoading ? "Loading…" : "—")
+            text:           hasData ? formatNumber(price, 2) : (isLoading ? "Loading…" : "—")
             font.pixelSize: Theme.fontSizeMedium
             font.weight:    Font.Medium
             color:          Theme.surfaceText

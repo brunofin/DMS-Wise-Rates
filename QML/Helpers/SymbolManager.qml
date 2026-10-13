@@ -34,7 +34,7 @@ Item {
             var sym = pinnedSymbols[i]
             var pd  = priceData[sym.id]
             if (pd && pd.close !== undefined && !isNaN(pd.close)) {
-                var label = sym.name + " " + Helpers.formatNumber(pd.close, 4)
+                var label = sym.name + " " + Helpers.formatNumber(pd.close, 2)
                 if (Helpers.boolValue(sym.showChangeWhenPinned, false)) {
                     var chg  = pd.change || 0
                     label += " " + (chg >= 0 ? "+" : "") + Helpers.formatNumber(chg, 4)
